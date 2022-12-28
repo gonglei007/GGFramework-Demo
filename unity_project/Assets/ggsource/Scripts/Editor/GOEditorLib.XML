@@ -1,0 +1,545 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GOEditorLib</name>
+    </assembly>
+    <members>
+        <member name="T:GOEditorLib.AssetBundleEditorTool">
+            <summary>
+            用于生成AssetBundle的工具类
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.AssetBundleEditorTool.BuildSingleFileIntoBundle(System.String,System.String,UnityEditor.BuildTarget,UnityEditor.BuildAssetBundleOptions,System.Boolean)">
+            <summary>
+            将一个文件单独打包
+            </summary>
+            <param name="filePath">以Assets开头的相对路径（文件在Unity工程中）</param>
+            <param name="outputPath">输出AssetBundle路径</param>
+            <param name="buildTarget">针对的平台，如Android或iOS</param>
+            <param name="buildOption">生成AssetBundle的配置选项</param>
+            <param name="pushPopDependency">是否压栈并弹栈依赖关系</param>
+        </member>
+        <member name="M:GOEditorLib.AssetBundleEditorTool.BuildAllFileIntoOneBundle(System.IO.DirectoryInfo,System.String,UnityEditor.BuildTarget,UnityEditor.BuildAssetBundleOptions,System.Boolean)">
+            <summary>
+            将resPath下的所有文件打到一个AssetBundle里(将忽略后缀为.DS_Store或.meta的文件，以及文件名为dummy的文件）
+            </summary>
+            <param name="dirInfo">要打包的资源路径的DirectoryInfo对象</param>
+            <param name="outputPath">输出AssetBundle路径</param>
+            <param name="buildTarget">针对的平台，如Android或iOS</param>
+            <param name="buildOption">生成AssetBundle的配置选项</param>
+            <param name="pushPopDependency">是否压栈并弹栈依赖关系</param>
+        </member>
+        <member name="M:GOEditorLib.AssetBundleEditorTool.BuildAllFileIntoOneBundle(System.String,System.String,UnityEditor.BuildTarget,UnityEditor.BuildAssetBundleOptions,System.Boolean)">
+            <summary>
+            将resPath下的所有文件打到一个AssetBundle里(将忽略后缀为.DS_Store或.meta的文件，以及文件名为dummy的文件）
+            </summary>
+            <param name="resPath">要打包的资源路径(是文件夹的完整路径)</param>
+            <param name="outputPath">输出AssetBundle路径</param>
+            <param name="buildTarget">针对的平台，如Android或iOS</param>
+            <param name="buildOption">生成AssetBundle的配置选项</param>
+            <param name="pushPopDependency">是否压栈并弹栈依赖关系</param>
+        </member>
+        <member name="M:GOEditorLib.AssetBundleEditorTool.BuildFileIntoBundle(System.String,System.String,System.String,UnityEditor.BuildTarget,UnityEditor.BuildAssetBundleOptions,System.Boolean)">
+            <summary>
+            给fileName文件打包到AssetBundle里
+            </summary>
+            <param name="fileName">要打包的文件名</param>
+            <param name="relativePath">要打包的文件相对于资源目录的子路径</param>
+            <param name="outputPath">输出AssetBundle路径</param>
+            <param name="buildTarget">针对的平台，如Android或iOS</param>
+            <param name="buildOption">生成AssetBundle的配置选项</param>
+            <param name="pushPopDependency">是否压栈并弹栈依赖关系</param>
+        </member>
+        <member name="M:GOEditorLib.AssetBundleEditorTool.BuildAllFileIntoSeperatedBundle(System.String,System.String,UnityEditor.BuildTarget,UnityEditor.BuildAssetBundleOptions,System.Boolean)">
+            <summary>
+            将resPath下的所有文件打到独立的AssetBundle里(将忽略后缀为.DS_Store或.meta的文件，以及文件名为dummy的文件）
+            </summary>
+            <param name="resPath">要打包的资源路径(是文件夹的完整路径)</param>
+            <param name="outputPath">输出AssetBundle路径</param>
+            <param name="buildTarget">针对的平台，如Android或iOS</param>
+            <param name="buildOption">生成AssetBundle的配置选项</param>
+            <param name="pushPopDependency">是否压栈并弹栈依赖关系</param>
+        </member>
+        <member name="M:GOEditorLib.AssetBundleEditorTool.BuildAllFirstLevelSubFolderAndFileIntoSeperateBundle(System.String,System.String,UnityEditor.BuildTarget,UnityEditor.BuildAssetBundleOptions,System.Boolean)">
+            <summary>
+            将resPath路径下的第一级子文件与子文件夹打到独立的AssetBundle里(将忽略后缀为.DS_Store或.meta的文件，以及文件名为dummy的文件）
+            </summary>
+            <param name="resPath"></param>
+            <param name="outputPath"></param>
+            <param name="buildTarget"></param>
+            <param name="buildOption"></param>
+            <param name="pushPopDependency"></param>
+        </member>
+        <member name="T:GOEditorLib.GOEditorTools">
+            <summary>
+            Tools for the editor
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.CreateDummyTex">
+            <summary>
+            Create a white dummy texture.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.CreateCheckerTex(UnityEngine.Color,UnityEngine.Color)">
+            <summary>
+            Create a checker-background texture
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.CreateGradientTex">
+            <summary>
+            Create a gradient texture
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawTiledTexture(UnityEngine.Rect,UnityEngine.Texture)">
+            <summary>
+            Draws the tiled texture. Like GUI.DrawTexture() but tiled instead of stretched.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawOutline(UnityEngine.Rect)">
+            <summary>
+            Draw a single-pixel outline around the specified rectangle.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawOutline(UnityEngine.Rect,UnityEngine.Color)">
+            <summary>
+            Draw a single-pixel outline around the specified rectangle.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawOutline(UnityEngine.Rect,UnityEngine.Rect,UnityEngine.Color)">
+            <summary>
+            Draw a selection outline around the specified rectangle.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawOutline(UnityEngine.Rect,UnityEngine.Rect)">
+            <summary>
+            Draw a selection outline around the specified rectangle.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawOutline(UnityEngine.Rect,UnityEngine.Rect,UnityEngine.Rect)">
+            <summary>
+            Draw a 9-sliced outline.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawBackground(UnityEngine.Texture2D,System.Single)">
+            <summary>
+            Draw a checkered background for the specified texture.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawSeparator">
+            <summary>
+            Draw a visible separator in addition to adding some padding.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawList(System.String,System.String[],System.String,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Convenience function that displays a list of sprites and returns the selected value.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawAdvancedList(System.String,System.String[],System.String,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Convenience function that displays a list of sprites and returns the selected value.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.WillLosePrefab(UnityEngine.GameObject)">
+            <summary>
+            Helper function that checks to see if this action would break the prefab connection.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.GetSelectionFolder">
+            <summary>
+            Helper function that returns the folder where the current selection resides.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.IntPair(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Integer vector field.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.IntRect(System.String,UnityEngine.Rect)">
+            <summary>
+            Integer rectangle field.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.IntPadding(System.String,UnityEngine.Vector4)">
+            <summary>
+            Integer vector field.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.FindAll``1">
+            <summary>
+            Find all scene components, active or inactive.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawPrefixButton(System.String)">
+            <summary>
+            DrawPrefixButton
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawPrefixButton(System.String,UnityEngine.GUILayoutOption[])">
+            <summary>
+            DrawPrefixButton
+            </summary>
+            <param name="text"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawPrefixList(System.Int32,System.String[],UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draw PrefixList
+            </summary>
+            <param name="index"></param>
+            <param name="list"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawPrefixList(System.String,System.Int32,System.String[],UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draw PrefixList
+            </summary>
+            <param name="text"></param>
+            <param name="index"></param>
+            <param name="list"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawTexture(UnityEngine.Texture2D,UnityEngine.Rect,UnityEngine.Rect,UnityEngine.Color)">
+            <summary>
+            Draw the specified sprite.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawTexture(UnityEngine.Texture2D,UnityEngine.Rect,UnityEngine.Rect,UnityEngine.Color,UnityEngine.Material)">
+            <summary>
+            Draw the specified sprite.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.Select(UnityEngine.GameObject)">
+            <summary>
+            Select the specified game object and remember what was selected before.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.SelectPrevious">
+            <summary>
+            Select the previous game object.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.IsUniform(UnityEngine.Vector3)">
+            <summary>
+            Helper function that checks to see if the scale is uniform.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawMinimalisticHeader(System.String)">
+            <summary>
+            Draw a distinctly different looking header label
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawHeader(System.String)">
+            <summary>
+            Draw a distinctly different looking header label
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawHeader(System.String,System.String)">
+            <summary>
+            Draw a distinctly different looking header label
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawHeader(System.String,System.Boolean)">
+            <summary>
+            Draw a distinctly different looking header label
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawHeader(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Draw a distinctly different looking header label
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.BeginContents">
+            <summary>
+            Begin drawing the content area.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.BeginContents(System.Boolean)">
+            <summary>
+            Begin drawing the content area.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.EndContents">
+            <summary>
+            End drawing the content area.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawProperty(UnityEditor.SerializedObject,System.String,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Helper function that draws a serialized property.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawProperty(System.String,UnityEditor.SerializedObject,System.String,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Helper function that draws a serialized property.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawPaddedProperty(UnityEditor.SerializedObject,System.String,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Helper function that draws a serialized property.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawPaddedProperty(System.String,UnityEditor.SerializedObject,System.String,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Helper function that draws a serialized property.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawProperty(System.String,UnityEditor.SerializedObject,System.String,System.Boolean,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Helper function that draws a serialized property.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawProperty(System.String,UnityEditor.SerializedProperty,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Helper function that draws a serialized property.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawProperty(System.String,UnityEditor.SerializedProperty,System.Boolean,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Helper function that draws a serialized property.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawBorderProperty(System.String,UnityEditor.SerializedObject,System.String)">
+            <summary>
+            Helper function that draws a compact Vector4.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawRectProperty(System.String,UnityEditor.SerializedObject,System.String)">
+            <summary>
+            Helper function that draws a compact Rect.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawRectProperty(System.String,UnityEditor.SerializedObject,System.String,System.Single,System.Single)">
+            <summary>
+            Helper function that draws a compact Rect.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.SetLabelWidth(System.Single)">
+            <summary>
+            Unity 4.3 changed the way LookLikeControls works.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.RegisterUndo(System.String,UnityEngine.Object[])">
+            <summary>
+            Create an undo point for the specified objects.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.GetClassID(System.Type)">
+            <summary>
+            Gets the internal class ID of the specified type.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DestroyImmediate(UnityEngine.Object)">
+            <summary>
+            Destroy a object immediately
+            </summary>
+            <param name="obj">the object to be destroyed</param>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.GetClassID``1">
+            <summary>
+            Gets the internal class ID of the specified type.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.ReplaceClass(UnityEngine.MonoBehaviour,System.Type)">
+            <summary>
+            Convenience function that replaces the specified MonoBehaviour with one of specified type.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.ReplaceClass(UnityEngine.MonoBehaviour,System.Int32)">
+            <summary>
+            Convenience function that replaces the specified MonoBehaviour with one of specified class ID.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.ReplaceClass(UnityEditor.SerializedObject,System.Int32)">
+            <summary>
+            Convenience function that replaces the specified MonoBehaviour with one of specified class ID.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.ReplaceClass(UnityEditor.SerializedObject,System.Type)">
+            <summary>
+            Convenience function that replaces the specified MonoBehaviour with one of specified class ID.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.ReplaceClass``1(UnityEngine.MonoBehaviour)">
+            <summary>
+            Convenience function that replaces the specified MonoBehaviour with one of specified type.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.LoadAsset(System.String)">
+            <summary>
+            Load the asset at the specified path.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.LoadAsset``1(System.String)">
+            <summary>
+            Convenience function to load an asset of specified type, given the full path to it.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.ObjectToGUID(UnityEngine.Object)">
+            <summary>
+            Get the specified object's GUID.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.GUIDToObject(System.String)">
+            <summary>
+            Convert the specified GUID to an object reference.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.GUIDToObject``1(System.String)">
+            <summary>
+            Convert the specified GUID to an object reference of specified type.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.AddBorder(UnityEngine.Color32[],System.Int32,System.Int32)">
+            <summary>
+            Add a border around the specified color buffer with the width and height of a single pixel all around.
+            The returned color buffer will have its width and height increased by 2.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.AddShadow(UnityEngine.Color32[],System.Int32,System.Int32,UnityEngine.Color)">
+            <summary>
+            Add a soft shadow to the specified color buffer.
+            The buffer must have some padding around the edges in order for this to work properly.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.AddDepth(UnityEngine.Color32[],System.Int32,System.Int32,UnityEngine.Color)">
+            <summary>
+            Add a visual depth effect to the specified color buffer.
+            The buffer must have some padding around the edges in order for this to work properly.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.DrawPadding">
+            <summary>
+            Draw 18 pixel padding on the right-hand side. Used to align fields.
+            </summary>
+        </member>
+        <member name="M:GOEditorLib.GOEditorTools.ClampIndex(System.Int32,System.Int32)">
+            <summary>
+            Restrict val between 0 and max - 1
+            </summary>
+            <param name="val">value</param>
+            <param name="max">max value</param>
+            <returns>Clamped value</returns>
+        </member>
+        <member name="P:GOEditorLib.GOEditorTools.blankTexture">
+            <summary>
+            Returns a blank usable 1x1 white texture.
+            </summary>
+        </member>
+        <member name="P:GOEditorLib.GOEditorTools.backdropTexture">
+            <summary>
+            Returns a usable texture that looks like a dark checker board.
+            </summary>
+        </member>
+        <member name="P:GOEditorLib.GOEditorTools.contrastTexture">
+            <summary>
+            Returns a usable texture that looks like a high-contrast checker board.
+            </summary>
+        </member>
+        <member name="P:GOEditorLib.GOEditorTools.gradientTexture">
+            <summary>
+            Gradient texture is used for title bars / headers.
+            </summary>
+        </member>
+        <member name="P:GOEditorLib.GOEditorTools.previousSelection">
+            <summary>
+            Previously selected game object.
+            </summary>
+        </member>
+        <member name="T:GOEditorLib.GOEditorTools.IntVector">
+            <summary>
+            Struct type for the integer vector field below.
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.GOEditorTools.IntVector.x">
+            <summary>
+            x
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.GOEditorTools.IntVector.y">
+            <summary>
+            y
+            </summary>
+        </member>
+        <member name="T:GOEditorLib.GOEditorTools.MenuEntry">
+            <summary>
+            Automatically upgrade all of the UITextures in the scene to Sprites if they can be found within the specified atlas.
+            </summary>
+        </member>
+        <member name="T:GOEditorLib.RenameTool">
+            <summary>
+            对UnityEditor中Hierarchy中的物体命名工具类
+            </summary>
+        </member>
+        <member name="T:GOEditorLib.ReplaceTool">
+            <summary>
+            批量替换工具，用于替换某些因故与prefab失去联系的gameobject，使之重新建立联系
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.ReplaceTool.prefab">
+            <summary>
+            Prefab Object
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.ReplaceTool.oldObjects">
+            <summary>
+            Old Objects
+            </summary>
+        </member>
+        <member name="T:GOEditorLib.SearchType">
+            <summary>
+            搜索类型
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchType.SearchObjectScriptRef">
+            <summary>
+            搜索挂载了某个脚本的物体
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchType.SearchObjectAssetRef">
+            <summary>
+            搜索引用某个资源的被其他资源
+            </summary>
+        </member>
+        <member name="T:GOEditorLib.SearchTool">
+            <summary>
+            搜索工具，提供一些在UnityEditor中的搜索方法
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchTool.searchObject">
+            <summary>
+            要搜索的对象
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchTool.searchRange">
+            <summary>
+            搜索范围(Hierarchy中的某个GameObject，将搜索其及其所有子物体)
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchTool.searchRanges">
+            <summary>
+            搜索范围的物体列表
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchTool.result">
+            <summary>
+            搜索结果列表
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchTool.seachType">
+            <summary>
+            当前搜索类型
+            </summary>
+        </member>
+        <member name="F:GOEditorLib.SearchTool.scrollPosition">
+            <summary>
+            滚动列表的位置
+            </summary>
+        </member>
+    </members>
+</doc>

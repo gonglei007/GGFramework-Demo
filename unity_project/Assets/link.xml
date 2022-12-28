@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<linker>
+    <assembly fullname="mscorlib">
+        <namespace fullname="System.Collections.Generic" preserve="all"/>
+    </assembly>
+    <assembly fullname="UnityEngine">
+        <type fullname="UnityEngine.Animator" preserve="all"/>
+        <type fullname="UnityEngine.AnimationEvent" preserve="all"/>
+        <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all"/>
+        <type fullname="UnityEngine.SpriteMask" preserve="all"/>
+        <type fullname="UnityEngine.WorldAnchor" preserve="all"/>
+        <type fullname="UnityEngine.WindZone" preserve="all"/>
+        <type fullname="UnityEngine.CoreModule.SortingGroup" preserve="all"/>
+    </assembly>
+    <assembly fullname="UnityEditor">
+        <type fullname="UnityEditor.Animations.AnimatorController" preserve="all"/>
+    </assembly>
+</linker>

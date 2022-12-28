@@ -1,0 +1,48 @@
+
+head_frane15.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+04
+  rotate: false
+  xy: 270, 395
+  size: 62, 76
+  orig: 62, 76
+  offset: 0, 0
+  index: -1
+05
+  rotate: false
+  xy: 2, 185
+  size: 88, 156
+  orig: 88, 156
+  offset: 0, 0
+  index: -1
+06
+  rotate: false
+  xy: 2, 2
+  size: 66, 69
+  orig: 66, 69
+  offset: 0, 0
+  index: -1
+07
+  rotate: true
+  xy: 132, 390
+  size: 81, 136
+  orig: 81, 136
+  offset: 0, 0
+  index: -1
+08
+  rotate: false
+  xy: 2, 73
+  size: 71, 110
+  orig: 71, 110
+  offset: 0, 0
+  index: -1
+D_2D_Fog_01
+  rotate: false
+  xy: 2, 343
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

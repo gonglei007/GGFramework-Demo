@@ -1,0 +1,7 @@
+.vsconfig
+unity_project/Library
+unity_project/output
+unity_project/obj
+unity_project/Assets/StreamingAssets
+unity_project/.vs
+unity_project/Logs

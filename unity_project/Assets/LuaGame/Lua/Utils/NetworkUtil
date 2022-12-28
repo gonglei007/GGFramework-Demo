@@ -1,0 +1,38 @@
+
+---
+---此方法根据reqCommand获取sign
+---reqCommand格式 : player/updateNick?uid=uid&newNick=newNick
+---sign : uid#newNick
+---
+function NetworkUtil.GetSign(reqCommand)
+    local param1 = LuaSplit(reqCommand, "?")
+    local param2 = LuaSplit(param1[2], "&")
+    local tTable = {};
+    local paramData = {};
+    for i = 1, #param2 do
+        local param3 = LuaSplit(param2[i], "=")
+        paramData[param3[1]] = param3[2]
+        table.insert(tTable, param3[1])
+    end
+    BubbleSort(tTable)
+    local sign = "";
+    for i = 1, #tTable do
+        if i == 1 then
+            sign = sign..paramData[tTable[i]]
+        else
+            sign = sign.."#"..paramData[tTable[i]]
+        end
+    end
+    sign = sign.."#"..this.serverSign
+    return sign;
+end
+
+---
+---此方法为获取完整reqCommand的方法（添加timestamp与sign）
+---
+function NetworkUtil.GetCompleteReq(reqCommand)
+    reqCommand = string.format("%s&timestamp=%d", reqCommand, os.time() * 1000)
+    local sign = HttpNetworkManager.GetSign(reqCommand)
+    local req = string.format("%s&sign=%s", reqCommand,  CommonTools.Md5Sum(sign))
+    return req;
+end

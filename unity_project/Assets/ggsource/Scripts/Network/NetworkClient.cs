@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections;
 using SimpleJson;
 using Pomelo.DotNetClient;
+using GGFramework.GGTask;
 using System;
 #if DotNet40
 using System.Collections.Concurrent;

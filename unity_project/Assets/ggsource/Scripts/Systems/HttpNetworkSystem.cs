@@ -11,6 +11,7 @@ using SimpleJson;
 using System.Text;
 using LuaInterface;
 using GGFramework;
+using GGFramework.GGTask;
 
 public static class HTTPRequestAdapter{
     private static Dictionary<HTTPRequest, string> serviceTypeMap = new Dictionary<HTTPRequest, string>();

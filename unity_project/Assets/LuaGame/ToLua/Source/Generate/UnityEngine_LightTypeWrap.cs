@@ -53,7 +53,8 @@ public class UnityEngine_LightTypeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_Area(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.LightType.Area);
+		// LightType.Area 在 Unity 2017+ 已重命名为 Rectangle（同值），Unity 6 下 Area 无法编译。
+		ToLua.Push(L, UnityEngine.LightType.Rectangle);
 		return 1;
 	}
 

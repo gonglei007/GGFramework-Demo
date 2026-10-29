@@ -31,9 +31,8 @@ public class UnityEngine_RandomWrap
 
 			if (count == 0)
 			{
-				UnityEngine.Random obj = new UnityEngine.Random();
-				ToLua.PushSealed(L, obj);
-				return 1;
+				// UnityEngine.Random 是静态类，不可实例化；Unity 6 下 new UnityEngine.Random() 无法编译，故直接抛出。
+				return LuaDLL.luaL_throw(L, "UnityEngine.Random is a static class and cannot be instantiated.");
 			}
 			else
 			{

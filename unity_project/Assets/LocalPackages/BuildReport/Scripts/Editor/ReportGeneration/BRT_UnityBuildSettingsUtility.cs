@@ -881,7 +881,7 @@ public static class UnityBuildSettingsUtility
 #if !UNITY_4
 		// Xbox One build settings
 		// ---------------------------------------------------------------
-		settings.XboxOneDeployMethod = EditorUserBuildSettings.xboxOneDeployMethod.ToString();
+		// settings.XboxOneDeployMethod 赋值已删除：EditorUserBuildSettings.xboxOneDeployMethod 随 XDK Xbox One 平台在 Unity 2021.1 移除。
 		settings.XboxOneTitleId = PlayerSettings.XboxOne.TitleId;
 		settings.XboxOneContentId = PlayerSettings.XboxOne.ContentId;
 		settings.XboxOneProductId = PlayerSettings.XboxOne.ProductId;
@@ -902,7 +902,7 @@ public static class UnityBuildSettingsUtility
 
 		settings.XboxOneDisableKinectGpuReservation = PlayerSettings.XboxOne.DisableKinectGpuReservation;
 		settings.XboxOneEnableVariableGPU = PlayerSettings.XboxOne.EnableVariableGPU;
-		settings.XboxOneStreamingInstallLaunchRange = EditorUserBuildSettings.streamingInstallLaunchRange;
+		// settings.XboxOneStreamingInstallLaunchRange 赋值已删除：EditorUserBuildSettings.streamingInstallLaunchRange 随 XDK Xbox One 平台在 Unity 2021.1 移除。
 		settings.XboxOnePersistentLocalStorageSize = PlayerSettings.XboxOne.PersistentLocalStorageSize;
 
 		settings.XboxOneSocketNames = PlayerSettings.XboxOne.SocketNames;

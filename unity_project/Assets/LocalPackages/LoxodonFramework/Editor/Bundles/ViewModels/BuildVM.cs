@@ -306,7 +306,7 @@ namespace Loxodon.Framework.Bundles.Editors
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle;
+            BuildAssetBundleOptions options = BuildAssetBundleOptions.None;// DeterministicAssetBundle 已废弃（新 AssetBundle 系统始终启用），等价替换为 None
             switch (this.Compression)
             {
                 case CompressOptions.Uncompressed:

@@ -227,10 +227,10 @@ public class AssetBuilder : EditorWindow {
             Directory.CreateDirectory(path);
         }
 
-        BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle;
+        BuildAssetBundleOptions options = BuildAssetBundleOptions.None;// DeterministicAssetBundle 已废弃（新 AssetBundle 系统始终启用），等价替换为 None
         options |= BuildAssetBundleOptions.ChunkBasedCompression;
         options |= BuildAssetBundleOptions.ForceRebuildAssetBundle;
-        options |= BuildAssetBundleOptions.DeterministicAssetBundle;//用于为资源维护固定ID，默认开启
+        // options |= BuildAssetBundleOptions.DeterministicAssetBundle; // 已废弃：新系统始终启用，无需显式指定（用于为资源维护固定ID）
 
         List<IBundleModifier> bundleModifierChain = CreateBundleModifierChain();
         BundleBuilder builder = new BundleBuilder();

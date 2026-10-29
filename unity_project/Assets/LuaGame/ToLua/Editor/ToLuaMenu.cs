@@ -1145,7 +1145,7 @@ public static class ToLuaMenu
 
         AssetDatabase.SaveAssets();        
         string output = string.Format("{0}/{1}", Application.streamingAssetsPath, GetOS());        
-        BuildPipeline.BuildAssetBundles(output, BuildAssetBundleOptions.DeterministicAssetBundle, EditorUserBuildSettings.activeBuildTarget);
+        BuildPipeline.BuildAssetBundles(output, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);// DeterministicAssetBundle 已废弃（新系统始终启用），等价替换为 None
 
         //Directory.Delete(Application.dataPath + "/temp/", true);
 #else
@@ -1203,7 +1203,7 @@ public static class ToLuaMenu
 
         AssetDatabase.Refresh();
         string output = string.Format("{0}/{1}", Application.streamingAssetsPath, GetOS());
-        BuildPipeline.BuildAssetBundles(output, BuildAssetBundleOptions.DeterministicAssetBundle, EditorUserBuildSettings.activeBuildTarget);
+        BuildPipeline.BuildAssetBundles(output, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);// DeterministicAssetBundle 已废弃（新系统始终启用），等价替换为 None
         Directory.Delete(Application.dataPath + "/temp/", true);
 #else
         for (int i = 0; i < dirs.Count; i++)

@@ -53,22 +53,49 @@ namespace GOEditorLib
 
             GetAllSubFileInfos(dirInfo, fileInfoList, true);
 
-            List<Object> objList = new List<Object>(fileInfoList.Count);
+            List<string> assetNameList = new List<string>(fileInfoList.Count);
 
             foreach (FileInfo fileInfo in fileInfoList)
             {
                 string fullPath = fileInfo.FullName;
-                string unityAssetPath = fullPath.Substring(fullPath.LastIndexOf("Assets"));
+                string unityAssetPath = fullPath.Substring(fullPath.LastIndexOf("Assets")).Replace('\\', '/');
                 Object obj = AssetDatabase.LoadAssetAtPath(unityAssetPath, typeof (Object));
                 if (obj != null)
                 {
-                    objList.Add(obj);
+                    assetNameList.Add(unityAssetPath);
                 }
             }
 
 			Debug.Log("fileInfoList.Count: " + fileInfoList.Count);
 			Debug.Log("dirInfo: " + dirInfo);
-            BuildPipeline.BuildAssetBundle(objList[0], objList.ToArray(), targetFileName, buildOption, buildTarget);
+            // BuildPipeline.BuildAssetBundle(单数) 已被 Unity 移除，改用现代的 BuildAssetBundles(复数)：
+            // 构建到临时目录后把 bundle 文件(不含 .manifest)拷贝到 targetFileName，保持原单文件产物语义。
+            if (assetNameList.Count > 0)
+            {
+                string bundleFileName = (dirInfo.Name + ASSETBUNDLE_EXTENSTION).ToLower();
+                AssetBundleBuild abb = new AssetBundleBuild();
+                abb.assetBundleName = bundleFileName;
+                abb.assetNames = assetNameList.ToArray();
+
+                string tempDir = "Temp/AssetBundleEditorToolBuild";
+                if (Directory.Exists(tempDir))
+                {
+                    Directory.Delete(tempDir, true);
+                }
+                Directory.CreateDirectory(tempDir);
+                BuildPipeline.BuildAssetBundles(tempDir, new AssetBundleBuild[1] { abb }, buildOption, buildTarget);
+
+                string builtBundle = Path.Combine(tempDir, bundleFileName);
+                if (File.Exists(builtBundle))
+                {
+                    string outputDir = Path.GetDirectoryName(targetFileName);
+                    if (!string.IsNullOrEmpty(outputDir) && !Directory.Exists(outputDir))
+                    {
+                        Directory.CreateDirectory(outputDir);
+                    }
+                    File.Copy(builtBundle, targetFileName, true);
+                }
+            }
         }
 
         /// <summary>
@@ -125,7 +152,29 @@ namespace GOEditorLib
 
             Object obj = AssetDatabase.LoadAssetAtPath(unityAssetPath, typeof(Object));
 
-            BuildPipeline.BuildAssetBundle(obj, new Object[] { obj }, targetFileName, buildOption, buildTarget);
+            // BuildPipeline.BuildAssetBundle(单数) 已被 Unity 移除，改用现代的 BuildAssetBundles(复数)：
+            // 单文件打包，构建到临时目录后把 bundle 文件(不含 .manifest)拷贝到 targetFileName。
+            if (obj != null)
+            {
+                string bundleFileName = Path.GetFileName(targetFileName).ToLower();
+                AssetBundleBuild abb = new AssetBundleBuild();
+                abb.assetBundleName = bundleFileName;
+                abb.assetNames = new string[1] { unityAssetPath.Replace('\\', '/') };
+
+                string tempDir = "Temp/AssetBundleEditorToolBuild";
+                if (Directory.Exists(tempDir))
+                {
+                    Directory.Delete(tempDir, true);
+                }
+                Directory.CreateDirectory(tempDir);
+                BuildPipeline.BuildAssetBundles(tempDir, new AssetBundleBuild[1] { abb }, buildOption, buildTarget);
+
+                string builtBundle = Path.Combine(tempDir, bundleFileName);
+                if (File.Exists(builtBundle))
+                {
+                    File.Copy(builtBundle, targetFileName, true);
+                }
+            }
         }
 
 

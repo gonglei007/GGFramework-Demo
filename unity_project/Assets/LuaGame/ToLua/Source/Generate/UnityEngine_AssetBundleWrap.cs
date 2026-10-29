@@ -306,7 +306,8 @@ public class UnityEngine_AssetBundleWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			string arg0 = ToLua.CheckString(L, 1);
-			UnityEngine.AssetBundle.SetAssetBundleDecryptKey(arg0);
+			// UnityEngine.AssetBundle.SetAssetBundleDecryptKey 在新 AssetBundle 系统中已被 Unity 移除（无等价 API），
+			// 此绑定改为 no-op，避免 Lua 侧历史调用导致编译失败。
 			return 0;
 		}
 		catch (Exception e)

@@ -154,21 +154,15 @@ public class LuaBuilder {
     }
     static void BuildLuaBundle(string dir, BuildTarget target)
     {
-        BuildAssetBundleOptions options = BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.CompleteAssets |
-                                          BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.UncompressedAssetBundle;
+        // CollectDependencies(始终启用)/CompleteAssets(始终禁用)/DeterministicAssetBundle(始终启用) 均已废弃，仅保留仍有效的 UncompressedAssetBundle。
+        BuildAssetBundleOptions options = BuildAssetBundleOptions.UncompressedAssetBundle;
         string path = "Assets/" + AppConst.LuaTempDir + dir;
         string[] files = Directory.GetFiles(path, "*.lua.bytes");
-        List<Object> list = new List<Object>();
         string bundleName = "lua.unity3d";
         if (dir != null)
         {
             dir = dir.Replace('\\', '_').Replace('/', '_');
             bundleName = "lua_" + dir.ToLower() + AppConst.ExtName;
-        }
-        for (int i = 0; i < files.Length; i++)
-        {
-            Object obj = AssetDatabase.LoadMainAssetAtPath(files[i]);
-            list.Add(obj);
         }
 
         if (files.Length > 0)
@@ -178,7 +172,37 @@ public class LuaBuilder {
             {
                 File.Delete(output);
             }
-            BuildPipeline.BuildAssetBundle(null, list.ToArray(), output, options, target);
+
+            // BuildPipeline.BuildAssetBundle(单数、显式对象列表) 已被 Unity 移除，改用现代的 BuildAssetBundles(复数)：
+            // 以 AssetBundleBuild[] 清单构建到临时目录，再把生成的 bundle 文件(不含 .manifest)拷贝到原 output，保持产物布局不变。
+            string[] assetNames = new string[files.Length];
+            for (int i = 0; i < files.Length; i++)
+            {
+                assetNames[i] = files[i].Replace('\\', '/');
+            }
+            string lowerBundleName = bundleName.ToLower();
+            AssetBundleBuild build = new AssetBundleBuild();
+            build.assetBundleName = lowerBundleName;
+            build.assetNames = assetNames;
+
+            string tempDir = "Temp/LuaBundleBuild";
+            if (Directory.Exists(tempDir))
+            {
+                Directory.Delete(tempDir, true);
+            }
+            Directory.CreateDirectory(tempDir);
+            BuildPipeline.BuildAssetBundles(tempDir, new AssetBundleBuild[] { build }, options, target);
+
+            string builtBundle = Path.Combine(tempDir, lowerBundleName);
+            if (File.Exists(builtBundle))
+            {
+                string outputDir = Path.GetDirectoryName(output);
+                if (!string.IsNullOrEmpty(outputDir) && !Directory.Exists(outputDir))
+                {
+                    Directory.CreateDirectory(outputDir);
+                }
+                File.Copy(builtBundle, output, true);
+            }
             AssetDatabase.Refresh();
         }
     }

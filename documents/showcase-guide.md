@@ -4,13 +4,15 @@
 
 ## 启动
 
-目录布局如下；Core 是共享源码包，其余模块源码仍由 Demo 内的既有副本集成。
+安装 Git 和 Unity 6000.3.13f1 后，单独克隆 Demo 即可：
 
-```text
-GGFramework/
-  GGFramework-Core/
-  GGFramework-Demo/unity_project/
+```powershell
+git clone https://github.com/gonglei007/GGFramework-Demo.git
 ```
+
+Core 由 Unity Package Manager 自动从公开 GitHub 仓库获取，固定依赖为
+`https://github.com/gonglei007/GGFramework-Core.git#v0.3.0`。
+无需将 Core 放在同级目录，也无需克隆其他模块仓库；其余模块源码继续使用 Demo 内的既有副本。
 
 用 Unity 6000.3.13f1 打开 `unity_project`。选择 **GGFramework → Demo → Play Showcase**。
 也可直接打开 `Assets/FrameworkShowcase/Scenes/FrameworkShowcase.unity` 后播放。
@@ -20,7 +22,7 @@ GGFramework/
 默认支持 Windows Editor / Windows 桌面 Player。其他桌面平台需匹配的 ToLua 原生插件；
 回环 HTTP fixture 使用 TCP，不适用于 WebGL。示例 Bundle 需针对当前目标平台重新生成。
 
-首次导入仍需 Unity Package Manager 取得 manifest 中声明的 Unity 包；“离线体验”指运行示例不依赖公网服务。
+首次导入需要 Git 位于 PATH 中，并能访问 GitHub 和 Unity 包服务。Unity Package Manager 会取得 manifest 中声明的 Core 固定版本与 Unity 包；“离线体验”指完成包解析后运行示例不依赖公网业务服务。若出现 Git executable not found，安装 Git 后重启 Unity Hub；若下载失败，检查 GitHub / Unity 包服务网络连接。
 
 ## 操作与预期结果
 
@@ -128,4 +130,4 @@ Player 自动测试会写入报告与主要页面截图，然后用 0（成功�
 - `Editor/ShowcaseTools.cs`：打开场景、播放、构建示例资源、批处理验证。
 
 Demo 继续采用现有模块源码副本；修复不会自动传播到独立模块仓库。
-本次新增共享能力直接引用同级 Core，SDK 注入与事件修复同时维护 Demo 和独立 GGUser。
+共享能力使用公开的 Core v0.3.0 固定标签；SDK 注入与事件修复同时维护 Demo 和独立 GGUser。

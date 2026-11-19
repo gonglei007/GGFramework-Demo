@@ -1,9 +1,9 @@
 # GGFramework-Demo
 应用 GGFramework 框架开发的 demo 工程，演示框架各模块（Core / GGResource / GGNetwork / GGUI / GGUser）如何在真实 Unity 工程中集成与使用。
 
-## 5 分钟开始体验
+## 快速开始
 
-1. 将本仓库与 [GGFramework-Core](https://github.com/gonglei007/GGFramework-Core) 放在同一父目录。
+1. 安装 Git 并单独克隆本仓库：`git clone https://github.com/gonglei007/GGFramework-Demo.git`。无需克隆 Core 或其他模块仓库。
 2. 用 **Unity 6000.3.13f1** 打开 `unity_project`，等待导入完成。
 3. 选择菜单 **GGFramework → Demo → Play Showcase**，或打开 `Assets/FrameworkShowcase/Scenes/FrameworkShowcase.unity` 后播放。
 4. 按侧栏依次体验 Core、资源、HTTP、UI、用户 SDK 与 Lua；每页都有操作指引、状态与回调记录。
@@ -16,13 +16,13 @@
 ## 环境
 
 - 适用 Unity 版本：**Unity 6000.3.13f1**
-- 框架依赖：经 UPM 引用同级仓库中的 GGFramework.Core **0.3.0**，`unity_project/Packages/manifest.json` 使用本地相对路径：
+- 框架依赖：经 UPM 引用公开 GitHub 仓库中的 GGFramework.Core，`unity_project/Packages/manifest.json` 固定到已发布的 **v0.3.0** 标签：
 
   ```json
-  "com.gonglei.ggframework.core": "file:../../../GGFramework-Core"
+  "com.gonglei.ggframework.core": "https://github.com/gonglei007/GGFramework-Core.git#v0.3.0"
   ```
 
-  相对路径从 `unity_project/Packages` 解析，因此需要同级检出的 Core 仓库。Core 0.3.0 当前未发布对应 tag；切换远程依赖前，须先发布包含本次任务系统修复的版本。
+  Git 需位于 PATH 中；首次导入需要访问 GitHub 和 Unity 包服务。Unity Package Manager 自动下载固定版本的 Core，`packages-lock.json` 记录实际解析的提交，无需本地 Core 路径。
 
   Core 的 Runtime 程序集 `autoReferenced: true`，`Assembly-CSharp` 中的脚本（如各 `*System` 单例）可直接解析 `Singleton<T>` 等类型，工程内不再保留本地副本。
 

@@ -1,5 +1,20 @@
 # GGFramework-Demo
-应用 GGFramework 框架开发的 demo 工程，演示框架各模块（Core / GGResource / GGNetwork / GGUI / GGUser）如何在真实 Unity 工程中集成与使用。
+
+GGFramework 的 Unity 集成演示与开发者体验大厅，覆盖 Core、资源与 AssetBundle、HTTP、UI 导航、用户 SDK 和 Lua 规则。
+
+[![Unity 6000.3.13f1](https://img.shields.io/badge/Unity-6000.3.13f1-222222?logo=unity)](https://github.com/gonglei007/GGFramework-Demo/blob/main/unity_project/ProjectSettings/ProjectVersion.txt) [![Core dependency v0.3.0](https://img.shields.io/badge/Core_dependency-v0.3.0-2563eb)](https://github.com/gonglei007/GGFramework-Core/tree/v0.3.0) [![Branch main](https://img.shields.io/badge/Branch-main-64748b)](https://github.com/gonglei007/GGFramework-Demo/tree/main)
+
+## 项目导航
+
+**Demo 体验** · [架构文档](https://github.com/gonglei007/GGFramework-Docs) · [Core](https://github.com/gonglei007/GGFramework-Core) · [GGResource](https://github.com/gonglei007/GGFramework-GGResource) · [GGNetwork](https://github.com/gonglei007/GGFramework-GGNetwork) · [GGUI](https://github.com/gonglei007/GGFramework-GGUI) · [GGUser](https://github.com/gonglei007/GGFramework-GGUser)
+
+> **体验入口**：本仓库可单独克隆，使用 Unity 菜单 **GGFramework → Demo → Play Showcase** 打开功能大厅。[操作指南](https://github.com/gonglei007/GGFramework-Demo/blob/main/documents/showcase-guide.md) · [验收记录](documents/showcase-verification.md)。
+
+## 模块关系
+
+Demo 通过公开 GitHub UPM 依赖固定使用 **Core v0.3.0**，可单独克隆。GGResource、GGNetwork、GGUI、GGUser 的集成代码沿用工程内既有源码副本；独立模块的新 API 和后端演进以各模块仓库为准，升级独立仓库不会自动同步这些副本。
+
+完整依赖图、工程锁定版本和源码副本边界由[架构文档中心](https://github.com/gonglei007/GGFramework-Docs#模块关系)统一维护。
 
 ## 快速开始
 

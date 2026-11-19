@@ -64,6 +64,8 @@ public class UISystem : Singleton<UISystem>
         GameObject root = new GameObject();
         root.AddComponent<UIBase>();
         root.name = "uiRoot";
+        mRoot = root.GetComponent<UIBase>();
+        root.transform.SetParent(transform, false);
 
         for (int i = (int)UILayer.Root; i < (int)UILayer.Count; ++i)
         {
@@ -74,6 +76,12 @@ public class UISystem : Singleton<UISystem>
         uiTweenerFactory.Init(uiAnimationRoot);
         ResourceSystem.Instance.onResourceLoaded += OnUIResourceLoaded;
         //TODO: GL - 构建存储UI对象的分组GameObject
+    }
+
+    private void OnDestroy()
+    {
+        var resource = FindFirstObjectByType<ResourceSystem>();
+        if (resource != null) resource.onResourceLoaded -= OnUIResourceLoaded;
     }
 
     // Start is called before the first frame update
@@ -89,7 +97,7 @@ public class UISystem : Singleton<UISystem>
     }
 
     void OnUIResourceLoaded(ResourceItem resourceItem) {
-        Debug.LogWarning("--->资源加载完成:" + resourceItem.name + "|" + resourceItem.path);
+
         if (resourceItem == null) {
             return;
         }
@@ -491,7 +499,7 @@ public class UISystem : Singleton<UISystem>
         {
             // 如果当前对话框的父是此Page，则隐藏对话框。
             //TODO: GL - 如果对话框是必须要响应的，则要阻止页面弹出。对话框也要做一下遮挡。
-            if (mDialog.Parent == page)
+            if (mDialog != null && mDialog.Parent == page)
             {
                 if (mDialog.IsShowing())
                 {
@@ -628,7 +636,7 @@ public class UISystem : Singleton<UISystem>
     }
 
     public void HideAllWindows() {
-        foreach (string key in mWindows.Keys) {
+        foreach (string key in new List<string>(mWindows.Keys)) {
             HideWindow(key);
         }
     }
@@ -704,7 +712,7 @@ public class UISystem : Singleton<UISystem>
             UILoading loading = GetUIBase(UILayer.Loading, name) as UILoading;
             return loading;
         }
-    } 
+    }
 
     /// <summary>
     /// 展示转场动画

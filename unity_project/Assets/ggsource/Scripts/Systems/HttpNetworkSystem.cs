@@ -278,7 +278,7 @@ public class HttpNetworkSystem: Singleton<HttpNetworkSystem>
                 if (onDialog != null)
                 {
                     onDialog(TextSystem.GetText("server_error"), message, true, (bool retry) => {
-                        DoSendRequest(originalRequest);
+                        if (retry) DoSendRequest(originalRequest);
                     });
                 }
                 break;
@@ -286,7 +286,7 @@ public class HttpNetworkSystem: Singleton<HttpNetworkSystem>
                 if (onDialog != null)
                 {
                     onDialog(TextSystem.GetText("server_error"), message, true, (bool retry) => {
-                        DoSendRequest(originalRequest);
+                        if (retry) DoSendRequest(originalRequest);
                     });
                 }
                 break;

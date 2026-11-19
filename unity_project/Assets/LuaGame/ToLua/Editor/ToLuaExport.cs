@@ -114,6 +114,10 @@ public static class ToLuaExport
 
     public static List<string> memberFilter = new List<string>
     {
+        // Editor-only MeshRenderer APIs must not enter generated Player bindings.
+        "MeshRenderer.scaleInLightmap",
+        "MeshRenderer.receiveGI",
+        "MeshRenderer.stitchLightmapSeams",
         "String.Chars",
         "Directory.SetAccessControl",
         "File.GetAccessControl",

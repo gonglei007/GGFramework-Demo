@@ -185,6 +185,15 @@ public class UserSystem : Singleton<UserSystem>
         }
     }
 
+    public void ConfigureSDK(ISDK implementation)
+    {
+        if (implementation == null) throw new ArgumentNullException(nameof(implementation));
+        if (fsm.State != States.None) throw new InvalidOperationException("Configure SDK before login.");
+        if (ReferenceEquals(sdk, implementation)) return;
+        if (sdk is NativeSDK native) NativeLuaBridge.onNativeCallUnity -= native.HandleSDKCallback;
+        sdk = implementation;
+    }
+
     private void Awake()
     {
         fsm = StateMachine<States>.Initialize(this, States.None);
@@ -250,6 +259,7 @@ public class UserSystem : Singleton<UserSystem>
         if (sdk != null)
         {
             sdk.Init();
+            return;
         }
 
 #if UNITY_EDITOR
@@ -262,6 +272,7 @@ public class UserSystem : Singleton<UserSystem>
         if (sdk != null)
         {
             sdk.Login();
+            return;
         }
 #if UNITY_EDITOR
         CallSDKLoginSuccess(new User(UserSystem.LoadUID(), "", "", Global.GetChannel()));
@@ -269,15 +280,15 @@ public class UserSystem : Singleton<UserSystem>
     }
 
     public void SDKLogout() {
-        sdk.Logout();
+        sdk?.Logout();
     }
 
     public void SDKQuit() {
-        sdk.Quit();
+        sdk?.Quit();
     }
 
     public void SDKPay(Order order, UserData userData=null) {
-        sdk.Pay(order, userData);
+        if (sdk != null) { sdk.Pay(order, userData); return; }
 #if UNITY_EDITOR
         CallSDKPaySuccess("");
 #endif
@@ -302,7 +313,7 @@ public class UserSystem : Singleton<UserSystem>
     public void CallSDKInitSuccess(string ret)
     {
         Debug.Log("初始化成功:" + ret);
-        SetEvent(States.SDKLogining, new Event(Events.SDKInitSuccess, ret));
+        TriggerEvent(fsm.State, Events.SDKInitSuccess, ret);
         if (readyLogin) {
             UserSystem.Instance.ChangeState(UserSystem.States.SDKLogining);
             //TriggerEvent(States.SDKIniting, Events.SDKInitSuccess, ret);
@@ -312,8 +323,7 @@ public class UserSystem : Singleton<UserSystem>
     public void CallSDKInitFailed(string ret)
     {
         Debug.LogWarning("初始化失败:" + ret);
-        SetEvent(States.SDKIniting, new Event(Events.SDKInitFailed, ret));
-        UserSystem.Instance.ChangeState(UserSystem.States.SDKIniting, 1.0f);
+        TriggerEvent(fsm.State, Events.SDKInitFailed, ret);
         //TriggerEvent(States.SDKIniting, Events.SDKInitFailed, ret);
     }
 
@@ -335,14 +345,14 @@ public class UserSystem : Singleton<UserSystem>
     public void CallSDKLoginFailed(string ret)
     {
         Debug.LogWarning("登录失败:" + ret);
-        SetEvent(States.SDKLogining, new Event(Events.SDKLoginFailed, ret));
-        UserSystem.Instance.ChangeState(UserSystem.States.SDKLogining, 1.0f);
+        TriggerEvent(fsm.State, Events.SDKLoginFailed, ret);
         //TriggerEvent(States.SDKLogining, Events.SDKLoginFailed, ret);
     }
 
     public void CallSDKLogoutSuccess(string ret) {
         Debug.LogWarning("登出成功:" + ret);
-        SetEvent(States.SDKLogining, new Event(Events.SDKLogoutSuccess, ret));
+        user = null;
+        TriggerEvent(fsm.State, Events.SDKLogoutSuccess, ret);
         UserSystem.Instance.ChangeState(UserSystem.States.SDKInited);
         //TriggerEvent(States.SDKLogined, Events.SDKLogoutSuccess, ret);
     }

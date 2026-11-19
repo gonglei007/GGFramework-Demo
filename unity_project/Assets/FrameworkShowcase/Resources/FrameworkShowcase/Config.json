@@ -1,0 +1,6 @@
+{
+  "title": "GGFramework developer showcase",
+  "startingCoins": 128,
+  "source": "Bundled local Resources fixture",
+  "note": "Load twice to see cache and reference counting; release twice to remove."
+}

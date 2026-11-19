@@ -12,9 +12,11 @@ public class UnityEngine_MeshRendererWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("additionalVertexStreams", get_additionalVertexStreams, set_additionalVertexStreams);
 		L.RegVar("subMeshStartIndex", get_subMeshStartIndex, null);
+#if UNITY_EDITOR
 		L.RegVar("scaleInLightmap", get_scaleInLightmap, set_scaleInLightmap);
 		L.RegVar("receiveGI", get_receiveGI, set_receiveGI);
 		L.RegVar("stitchLightmapSeams", get_stitchLightmapSeams, set_stitchLightmapSeams);
+#endif
 		L.EndClass();
 	}
 
@@ -98,6 +100,7 @@ public class UnityEngine_MeshRendererWrap
 		}
 	}
 
+#if UNITY_EDITOR
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_scaleInLightmap(IntPtr L)
 	{
@@ -116,7 +119,9 @@ public class UnityEngine_MeshRendererWrap
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index scaleInLightmap on a nil value");
 		}
 	}
+#endif
 
+#if UNITY_EDITOR
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_receiveGI(IntPtr L)
 	{
@@ -135,7 +140,9 @@ public class UnityEngine_MeshRendererWrap
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index receiveGI on a nil value");
 		}
 	}
+#endif
 
+#if UNITY_EDITOR
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_stitchLightmapSeams(IntPtr L)
 	{
@@ -154,6 +161,7 @@ public class UnityEngine_MeshRendererWrap
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index stitchLightmapSeams on a nil value");
 		}
 	}
+#endif
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_additionalVertexStreams(IntPtr L)
@@ -174,6 +182,7 @@ public class UnityEngine_MeshRendererWrap
 		}
 	}
 
+#if UNITY_EDITOR
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_scaleInLightmap(IntPtr L)
 	{
@@ -192,7 +201,9 @@ public class UnityEngine_MeshRendererWrap
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index scaleInLightmap on a nil value");
 		}
 	}
+#endif
 
+#if UNITY_EDITOR
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_receiveGI(IntPtr L)
 	{
@@ -211,7 +222,9 @@ public class UnityEngine_MeshRendererWrap
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index receiveGI on a nil value");
 		}
 	}
+#endif
 
+#if UNITY_EDITOR
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_stitchLightmapSeams(IntPtr L)
 	{
@@ -230,5 +243,6 @@ public class UnityEngine_MeshRendererWrap
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index stitchLightmapSeams on a nil value");
 		}
 	}
+#endif
 }
 

@@ -5,6 +5,14 @@ unity_project/obj
 unity_project/Assets/StreamingAssets
 unity_project/.vs
 unity_project/Logs
+unity_project/Temp/
+
+# Unity IAP / dependency resolver generated during editor import
+unity_project/Assets/MobileDependencyResolver/
+unity_project/Assets/MobileDependencyResolver.meta
+unity_project/Assets/Resources/BillingMode.json
+unity_project/Assets/Resources/BillingMode.json.meta
+unity_project/Assets/Resources.meta
 
 # IDE 自动生成的工程/解决方案文件（Unity 会重建，不入库）
 *.csproj

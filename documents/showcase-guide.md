@@ -121,6 +121,18 @@ Start-Process "$project/output/showcase/GGFrameworkDemo.exe" -WindowStyle Normal
 
 Player 自动测试会写入报告与主要页面截图，然后用 0（成功）或 1（失败）退出。无图形设备时跳过截图；隐藏窗口可能产生黑帧，视觉验收应使用可见窗口。
 
+## 生命周期与重复播放回归
+
+2026-11-20 在 Windows 11 / Unity 6000.3.13f1 实跑修复后版本：Core EditMode 66/66、Editor 冒烟 28/28、Windows x64 Mono Development Player 冒烟 27/27。新增生命周期回归每轮 35 项断言，关闭 Domain Reload 的两个完整播放周期及 Player 均通过，退出码均为 0。[逐轮报告、环境、时间与原始报告摘要](verification-2026-11-20/results.json)。
+
+先构建 Sample Bundles，再执行 **GGFramework → Demo → Run Lifecycle Checks**。完整重复播放检查使用 **Run Lifecycle Checks Twice Without Domain Reload**：先导入检查三个修复 Prefab，再运行两个播放与退出周期，结束后恢复调用前的 Editor 播放设置。批处理以 `GGFramework.Demo.Editor.ShowcaseLifecycleTools.RunWithoutDomainReload` 为 executeMethod，启用图形设备，不传 `-nographics` 或 `-quit`。报告在 `Logs/showcase-lifecycle-cycle-1.txt`、`cycle-2.txt`（完整文件名同前缀）及 `showcase-lifecycle-results.txt`；Editor 真正返回 EditMode 后才退出进程。
+
+开发版 Player 可传 `--showcase-lifecycle --showcase-output <绝对目录>`，回归结束写 `lifecycle-results.txt` 后以 0/1 退出。本次 Player 使用 `-batchmode -nographics`，只验收 API 与生命周期，没有截图或界面视觉结论。
+
+回归检查事件退订、迟到任务结果隔离、池实例销毁、专属 TextAsset 计数与销毁、导入源资产保留、本地 Bundle 卸载、回环端口关闭，以及 UI 登记/页面栈清理和同会话重开；同时断言其他拥有者的 UI 登记仍存在。原始失败及修复后报告一并保留。修复仅作用于本仓库内置副本：独立 GGUI 的公共 RemoveUIBase 契约及其他 Loxodon 副本没有自动变化。
+
+这不证明全工程无内存泄漏、共享资产多拥有者安全、所有在途请求竞态、NGUI/UGUI 视觉一致或生产热更新/渠道支付通过。更完整的项目验收仍须在目标设备和真实服务执行。
+
 ## 扩展入口
 
 - `FrameworkShowcase.cs`：场景初始化和各模块操作；`FrameworkShowcase.GUI.cs`：导航、指引与状态呈现。

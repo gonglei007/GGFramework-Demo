@@ -35,6 +35,13 @@ namespace GGFramework.Demo
 
         private readonly List<string> messages = new List<string>();
         private readonly List<GameObject> active = new List<GameObject>();
+        private sealed class OwnedUI
+        {
+            public UISystem.UILayer Layer;
+            public string Name;
+            public UIBase View;
+        }
+        private readonly List<OwnedUI> ownedUI = new List<OwnedUI>();
         private GameObjectPool pool;
         private ResourceSystem resources;
         private Loxodon.Framework.Bundles.LocalResources localResources;
@@ -202,11 +209,12 @@ namespace GGFramework.Demo
         private T CreateUI<T>(string name, UISystem.UILayer layer) where T : UIBase
         {
             var go = new GameObject(name);
-            go.transform.SetParent(GameObject.FindWithTag("UIRoot").transform.Find(layer.ToString()), false);
+            go.transform.SetParent(ui.GetCreateGroup(layer).transform, false);
             var component = go.AddComponent<T>();
             component.Name = name;
             go.SetActive(false);
             ui.SetUIBase(layer, name, component);
+            ownedUI.Add(new OwnedUI { Layer = layer, Name = name, View = component });
             component.OnLoad();
             return component;
         }
@@ -292,6 +300,13 @@ namespace GGFramework.Demo
                 http.onDialog = null;
             }
             Events.Clear();
+            // Remove only registrations still pointing to this showcase's instances.
+            // The UI service can outlive the showcase and may already host other owners.
+            if (ui != null)
+                foreach (var entry in ownedUI) ui.RemoveOwnedUI(entry.Layer, entry.Name, entry.View);
+            foreach (var entry in ownedUI)
+                if (entry.View != null) Destroy(entry.View.gameObject);
+            ownedUI.Clear();
             if (pool != null) { foreach (var token in active) pool.Release(token); pool.Clear(); }
             if (resources != null)
                 while (CachedResource != null) resources.DestroyObject(ResourceSystem.Tag.Other, "ShowcaseConfig");

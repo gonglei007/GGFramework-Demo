@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -114,7 +114,7 @@ public class UISystem : Singleton<UISystem>
     /**
      * 获取分层组。如果不存在，则创建。
      */
-    private GameObject GetCreateGroup(UILayer layer) {
+    internal GameObject GetCreateGroup(UILayer layer) {
         GameObject uiRoot = GameObject.FindWithTag("UIRoot");
         if (uiRoot == null)
         {
@@ -153,6 +153,31 @@ public class UISystem : Singleton<UISystem>
             return;
         }
         mUITable[layer][name] = uiBase;
+    }
+
+    // Scope cleanup for code-created showcase UI. Keep the public legacy APIs unchanged.
+    // ReferenceEquals also handles Unity objects whose native side was already destroyed.
+    internal bool RemoveOwnedUI(UILayer layer, string name, UIBase expected)
+    {
+        Dictionary<string, UIBase> table;
+        UIBase current;
+        if (!mUITable.TryGetValue(layer, out table) || !table.TryGetValue(name, out current)
+            || !ReferenceEquals(current, expected)) return false;
+        table.Remove(name);
+        if (layer == UILayer.Page)
+        {
+            var pages = mPageStack.ToArray();
+            mPageStack.Clear();
+            for (int i = pages.Length - 1; i >= 0; --i)
+                if (!ReferenceEquals(pages[i], expected)) mPageStack.Push(pages[i]);
+        }
+        if (layer == UILayer.Window)
+        {
+            UIWindow window;
+            if (mWindows.TryGetValue(name, out window) && ReferenceEquals(window, expected))
+                mWindows.Remove(name);
+        }
+        return true;
     }
 
     public UIBase GetUIBase(UISystem.UILayer layer, string name) {

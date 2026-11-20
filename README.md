@@ -28,6 +28,10 @@ Demo 通过公开 GitHub UPM 依赖固定使用 **Core v0.3.0**，可单独克�
 
 完整操作步骤、API 对照、测试命令和接入边界见 [开发者体验指南](documents/showcase-guide.md)。
 
+## 2026-11-20 实跑回归
+
+Windows 11 / Unity 6000.3.13f1：Core 66/66、Editor 冒烟 28/28、Windows x64 Mono Player 冒烟 27/27；新增生命周期每轮 35 项，关闭 Domain Reload 连续两轮及 Player 均通过。[运行证据](documents/verification-2026-11-20/results.json) · [复现入口与未覆盖项](documents/showcase-guide.md#生命周期与重复播放回归)。本次修复大厅 UI 归属清理、内置 Loxodon 重复播放标记及三个旧 NGUI Prefab 的脚本引用。
+
 ## 环境
 
 - 适用 Unity 版本：**Unity 6000.3.13f1**

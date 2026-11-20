@@ -120,6 +120,8 @@ namespace Loxodon.Framework.Execution
                     mainThread = currentThread;
 #endif
                     executor = CreateMainThreadExecutor(dontDestroy, useFixedUpdate);
+                    // Restore dispatch for a new session with Domain Reload disabled.
+                    disposed = false;
 
 #if !NETFX_CORE && !UNITY_WEBGL
                     if (SynchronizationContext.Current == null)

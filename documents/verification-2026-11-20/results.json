@@ -1,0 +1,393 @@
+{
+  "environment": {
+    "unity": "6000.3.13f1 (8c4f11e4fb20)",
+    "os": "Windows 11 Pro 10.0.26300 x64",
+    "core": "v0.3.0 / c0567a89ebf3837754eaf504ae10e93a184ea146",
+    "player": "Windows x64 Mono Development; batchmode/nographics; no screenshots"
+  },
+  "baseline": "3039f9aad1813b8ad72e373a30b3eb073e0ee2eb",
+  "coreEditMode": {
+    "result": "Passed",
+    "total": "66",
+    "passed": "66",
+    "failed": "0",
+    "skipped": "0"
+  },
+  "coreCases": [
+    {
+      "fullname": "CoreStructureTests.CoroutineUtil_DerivesFrom_SingletonOfCoroutineUtil",
+      "result": "Passed",
+      "duration": "0.010521"
+    },
+    {
+      "fullname": "CoreStructureTests.CoroutineUtil_ExposesStaticDoCoroutine",
+      "result": "Passed",
+      "duration": "0.002124"
+    },
+    {
+      "fullname": "CoreStructureTests.Singleton_And_CoroutineUtil_AreInGlobalNamespace",
+      "result": "Passed",
+      "duration": "0.000286"
+    },
+    {
+      "fullname": "CoreStructureTests.Singleton_IsMonoBehaviour_WithMonoBehaviourConstraint",
+      "result": "Passed",
+      "duration": "0.000188"
+    },
+    {
+      "fullname": "CoreStructureTests.TaskSystem_And_GTask_LiveIn_GGTaskNamespace",
+      "result": "Passed",
+      "duration": "0.002498"
+    },
+    {
+      "fullname": "CoreStructureTests.TaskSystem_DerivesFrom_SingletonOfTaskSystem",
+      "result": "Passed",
+      "duration": "0.000240"
+    },
+    {
+      "fullname": "EventBusTests.Clear_RemovesAllSubscribers",
+      "result": "Passed",
+      "duration": "0.002983"
+    },
+    {
+      "fullname": "EventBusTests.Publish_HandlerThrowing_DoesNotBreakOthers",
+      "result": "Passed",
+      "duration": "0.007934"
+    },
+    {
+      "fullname": "EventBusTests.Publish_HandlerUnsubscribingDuringDispatch_IsSafe",
+      "result": "Passed",
+      "duration": "0.002874"
+    },
+    {
+      "fullname": "EventBusTests.Publish_NotifiesAllSubscribers_InOrder",
+      "result": "Passed",
+      "duration": "0.000466"
+    },
+    {
+      "fullname": "EventBusTests.Publish_NotifiesSubscriber_WithPayload",
+      "result": "Passed",
+      "duration": "0.000326"
+    },
+    {
+      "fullname": "EventBusTests.Publish_WithoutSubscriber_IsNoOp",
+      "result": "Passed",
+      "duration": "0.000232"
+    },
+    {
+      "fullname": "EventBusTests.Subscribe_IsSegregatedByEventType",
+      "result": "Passed",
+      "duration": "0.000290"
+    },
+    {
+      "fullname": "EventBusTests.Subscribe_NullHandler_Throws",
+      "result": "Passed",
+      "duration": "0.003198"
+    },
+    {
+      "fullname": "EventBusTests.Subscribe_SameHandlerTwice_IsDeduplicated",
+      "result": "Passed",
+      "duration": "0.000409"
+    },
+    {
+      "fullname": "EventBusTests.Unsubscribe_StopsNotifications",
+      "result": "Passed",
+      "duration": "0.000299"
+    },
+    {
+      "fullname": "FormatUtilTests.DataSize_FormatsBytesAndScalesThroughUnits",
+      "result": "Passed",
+      "duration": "0.001586"
+    },
+    {
+      "fullname": "FormatUtilTests.Md5Hex_IsLowercase32Hex",
+      "result": "Passed",
+      "duration": "0.002980"
+    },
+    {
+      "fullname": "FormatUtilTests.Md5Hex_KnownVector",
+      "result": "Passed",
+      "duration": "0.000280"
+    },
+    {
+      "fullname": "FormatUtilTests.UnixTimestampMs_PositiveAndCloseToNow",
+      "result": "Passed",
+      "duration": "0.002802"
+    },
+    {
+      "fullname": "GTaskTests.GTask_Dispose_IsIdempotentAndDoesNotThrow",
+      "result": "Passed",
+      "duration": "0.001433"
+    },
+    {
+      "fullname": "GTaskTests.GTask_FastJob_AlwaysCallsCompletion",
+      "result": "Passed",
+      "duration": "0.026413"
+    },
+    {
+      "fullname": "GTaskTests.GTask_Start_RunsThreadStartDelegate",
+      "result": "Passed",
+      "duration": "0.000702"
+    },
+    {
+      "fullname": "MainThreadDispatcherTests.Enqueue_DefersUntilProcessQueue",
+      "result": "Passed",
+      "duration": "0.003728"
+    },
+    {
+      "fullname": "MainThreadDispatcherTests.IsMainThread_TrueOnTestThread",
+      "result": "Passed",
+      "duration": "0.000322"
+    },
+    {
+      "fullname": "MainThreadDispatcherTests.PendingCount_ReflectsQueue",
+      "result": "Passed",
+      "duration": "0.000835"
+    },
+    {
+      "fullname": "MainThreadDispatcherTests.Post_NullAction_NoThrow",
+      "result": "Passed",
+      "duration": "0.000636"
+    },
+    {
+      "fullname": "MainThreadDispatcherTests.Post_OnMainThread_ExecutesImmediately",
+      "result": "Passed",
+      "duration": "0.000496"
+    },
+    {
+      "fullname": "MainThreadDispatcherTests.ProcessQueue_DrainsInFifoOrder",
+      "result": "Passed",
+      "duration": "0.000656"
+    },
+    {
+      "fullname": "MainThreadDispatcherTests.ProcessQueue_IsolatesException_ContinuesRemaining",
+      "result": "Passed",
+      "duration": "0.003033"
+    },
+    {
+      "fullname": "NetUtilTests.HostFromUrl_ExtractsHost",
+      "result": "Passed",
+      "duration": "0.001310"
+    },
+    {
+      "fullname": "NetUtilTests.Sign_DeterministicForSameInput",
+      "result": "Passed",
+      "duration": "0.001017"
+    },
+    {
+      "fullname": "NetUtilTests.Sign_MissingQuery_Throws",
+      "result": "Passed",
+      "duration": "0.001364"
+    },
+    {
+      "fullname": "NetUtilTests.Sign_ParamOrderInsensitive",
+      "result": "Passed",
+      "duration": "0.000427"
+    },
+    {
+      "fullname": "ObjectPoolTests.GameObjectPool_Get_ReturnsActiveInstance",
+      "result": "Passed",
+      "duration": "0.001808"
+    },
+    {
+      "fullname": "ObjectPoolTests.GameObjectPool_MaxSize_DropsExcessOnRelease",
+      "result": "Passed",
+      "duration": "0.000882"
+    },
+    {
+      "fullname": "ObjectPoolTests.GameObjectPool_NullPrefab_Throws",
+      "result": "Passed",
+      "duration": "0.000872"
+    },
+    {
+      "fullname": "ObjectPoolTests.GameObjectPool_ReleaseThenGet_ReusesInstance",
+      "result": "Passed",
+      "duration": "0.000676"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_Clear_EmptiesInactive",
+      "result": "Passed",
+      "duration": "0.000969"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_Get_CreatesViaFactory_WhenEmpty",
+      "result": "Passed",
+      "duration": "0.000476"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_MaxSize_DropsExcessOnRelease",
+      "result": "Passed",
+      "duration": "0.000377"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_NullFactory_Throws",
+      "result": "Passed",
+      "duration": "0.000374"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_OnGet_ResetsState",
+      "result": "Passed",
+      "duration": "0.000573"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_OnGetAndOnRelease_AreInvoked",
+      "result": "Passed",
+      "duration": "0.000516"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_Preload_FillsInactiveUpfront",
+      "result": "Passed",
+      "duration": "0.000448"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_ReleaseNull_IsIgnored",
+      "result": "Passed",
+      "duration": "0.000256"
+    },
+    {
+      "fullname": "ObjectPoolTests.Pool_ReleaseThenGet_ReusesInstance_WithoutNewFactoryCall",
+      "result": "Passed",
+      "duration": "0.000380"
+    },
+    {
+      "fullname": "PersistentPathResolverTests.Candidates_IncludesApplicationPersistentDataPath_AndBestNotNull",
+      "result": "Passed",
+      "duration": "0.002559"
+    },
+    {
+      "fullname": "PersistentPathResolverTests.FileExists_TrueForRealFile_FalseForMissing",
+      "result": "Passed",
+      "duration": "0.005580"
+    },
+    {
+      "fullname": "PersistentPathResolverTests.IsDirectoryWritable_NonExistent_False",
+      "result": "Passed",
+      "duration": "0.000617"
+    },
+    {
+      "fullname": "PersistentPathResolverTests.IsDirectoryWritable_ProbeFileCleanedUp",
+      "result": "Passed",
+      "duration": "0.002236"
+    },
+    {
+      "fullname": "PersistentPathResolverTests.IsDirectoryWritable_TempDir_True",
+      "result": "Passed",
+      "duration": "0.001136"
+    },
+    {
+      "fullname": "SingletonLifetimeTests.Instance_WhenQuitting_ReturnsNull_WithoutCreatingObject",
+      "result": "Passed",
+      "duration": "0.001564"
+    },
+    {
+      "fullname": "SingletonLifetimeTests.IsQuitting_IsSettableStaticBool",
+      "result": "Passed",
+      "duration": "0.000302"
+    },
+    {
+      "fullname": "StateMachineTests.AddTransitionGuard_NullGuard_Throws",
+      "result": "Passed",
+      "duration": "0.001791"
+    },
+    {
+      "fullname": "StateMachineTests.ChangeState_InvokesExitThenEnter",
+      "result": "Passed",
+      "duration": "0.002488"
+    },
+    {
+      "fullname": "StateMachineTests.ChangeState_SetsCurrent_AndReturnsTrue",
+      "result": "Passed",
+      "duration": "0.000500"
+    },
+    {
+      "fullname": "StateMachineTests.ChangeState_ToSameState_ReturnsFalse_AndNoCallback",
+      "result": "Passed",
+      "duration": "0.000401"
+    },
+    {
+      "fullname": "StateMachineTests.ChangeState_ToUnconfiguredState_StillWorks",
+      "result": "Passed",
+      "duration": "0.000322"
+    },
+    {
+      "fullname": "StateMachineTests.Clear_ResetsState",
+      "result": "Passed",
+      "duration": "0.000558"
+    },
+    {
+      "fullname": "StateMachineTests.InitialState_HasNoState",
+      "result": "Passed",
+      "duration": "0.000251"
+    },
+    {
+      "fullname": "StateMachineTests.StateChanged_FiresWithPreviousAndNext",
+      "result": "Passed",
+      "duration": "0.000739"
+    },
+    {
+      "fullname": "StateMachineTests.TransitionGuard_BlocksWhenFalse_AllowsWhenTrue",
+      "result": "Passed",
+      "duration": "0.001757"
+    },
+    {
+      "fullname": "StateMachineTests.Update_BeforeAnyState_IsNoOp",
+      "result": "Passed",
+      "duration": "0.000449"
+    },
+    {
+      "fullname": "StateMachineTests.Update_ForwardsDeltaTime_ToCurrentStateOnly",
+      "result": "Passed",
+      "duration": "0.000935"
+    },
+    {
+      "fullname": "TaskSystemTests.TimedOutJob_DoesNotBlockFollowingJob_AndInitIsIdempotent",
+      "result": "Passed",
+      "duration": "0.025662"
+    }
+  ],
+  "runs": [
+    {
+      "name": "demo-core-final",
+      "startedUtc": "2026-11-20T04:09:34.2610269Z",
+      "finishedUtc": "2026-11-20T04:09:57.8455236Z",
+      "exitCode": 0,
+      "rawLogSha256": "83610a478df7cb0977f22b0d4a8079e8c8082e7010f251e26ca3449623907f95",
+      "rawXmlSha256": "50ad55acfdd39e90c084692bcff5facab8481e7d6fe6388922cf69fe75950135"
+    },
+    {
+      "name": "demo-smoke-final",
+      "startedUtc": "2026-11-20T04:09:58.0546876Z",
+      "finishedUtc": "2026-11-20T04:10:22.0906941Z",
+      "exitCode": 0,
+      "rawLogSha256": "aaa721aeaa1d655789d711927ec2daa014663dbea7168e6d1c18812014000a8e"
+    },
+    {
+      "name": "demo-lifecycle-no-domain-reload-fixed",
+      "startedUtc": "2026-11-20T04:06:52.8467040Z",
+      "finishedUtc": "2026-11-20T04:08:57.4012286Z",
+      "exitCode": 0,
+      "rawLogSha256": "c3fa0428b283a65e97beb52fb1e2a2e12e1c367aaa0f82da31056b2646cee168"
+    },
+    {
+      "name": "demo-windows-build-final",
+      "startedUtc": "2026-11-20T04:10:22.1368742Z",
+      "finishedUtc": "2026-11-20T04:12:26.4711126Z",
+      "exitCode": 0,
+      "rawLogSha256": "db3643baeb22acd3d7e1b0b88ccef61a0a81266105ff3412831f4db8646084fa"
+    },
+    {
+      "name": "demo-player-smoke-final",
+      "startedUtc": "2026-11-20T04:13:33.8358774Z",
+      "finishedUtc": "2026-11-20T04:14:02.7970366Z",
+      "exitCode": 0,
+      "rawLogSha256": "4d5223cc54bb3ef1963e0fa420cd72f60eaeddc1b2e4d032ddcdf29175fbcf21"
+    },
+    {
+      "name": "demo-player-lifecycle-final",
+      "startedUtc": "2026-11-20T04:14:02.9127426Z",
+      "finishedUtc": "2026-11-20T04:14:12.8475816Z",
+      "exitCode": 0,
+      "rawLogSha256": "4a2c67818937bbf6d28a7c8ed5b09776fad988f6fac8d6df1937a86c8612494b"
+    }
+  ]
+}

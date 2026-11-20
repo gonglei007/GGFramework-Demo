@@ -127,7 +127,7 @@ namespace GGFramework.Demo.Editor
             SessionState.SetInt(ExitKey, success ? 0 : 1);
             if (success) Debug.Log(report); else Debug.LogError(report);
             EditorApplication.isPlaying = false;
-            if (Application.isBatchMode) EditorApplication.delayCall += () => EditorApplication.Exit(success ? 0 : 1);
+
         }
     }
 }

@@ -6,6 +6,7 @@ param(
     [Parameter(Mandatory)][string]$RunnerRoot,
     [string]$UnityEditor='C:/Program Files/Unity/Hub/Editor/6000.3.13f1/Editor/Unity.exe',
     [string]$PythonExecutable=$env:GGFRAMEWORK_PYTHON,
+    [string]$SeedRepository,
     [long]$RunId=0,
     [ValidateRange(5,120)][int]$JobTimeoutMinutes=75,
     [ValidateRange(60,900)][int]$QueueTimeoutSeconds=600
@@ -57,10 +58,27 @@ if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant
 $instance=Join-Path $root ("runner-"+$target.id+'-'+$target.run_attempt+'-'+[guid]::NewGuid().ToString('N'))
 Expand-Archive -LiteralPath $archive -DestinationPath $instance
 $work=Join-Path $instance 'work'
+if ($SeedRepository) {
+    $seed=(Resolve-Path -LiteralPath $SeedRepository).Path
+    $origin=(& git -C $seed remote get-url origin).Trim().TrimEnd('/')
+    if ($origin -notin @("https://github.com/$Repository","https://github.com/$Repository.git")) {throw 'Seed Git repository has a different origin'}
+    & git -C $seed cat-file -e ($Commit+'^{commit}')
+    if ($LASTEXITCODE -ne 0) {throw 'Exact CI commit is absent from the seed'}
+    $repoName=$Repository.Split('/')[1]
+    $workspace=Join-Path $work "$repoName/$repoName"
+    New-Item -ItemType Directory -Path (Split-Path -Parent $workspace) -Force|Out-Null
+    & git clone --local --no-hardlinks --no-checkout -- $seed $workspace
+    if ($LASTEXITCODE -ne 0) {throw 'Local committed-object seed failed'}
+    & git -C $workspace remote set-url origin "https://github.com/$Repository"
+    if ($LASTEXITCODE -ne 0) {throw 'Cannot restore the canonical GitHub origin'}
+}
 $name="ggf-once-$($target.id)-$($target.run_attempt)-$([guid]::NewGuid().ToString('N').Substring(0,8))"
 $registrationAttempted=$false
 $oldUnity=$env:GGFRAMEWORK_UNITY_EDITOR
 $oldPython=$env:GGFRAMEWORK_PYTHON
+$oldTemp=$env:TEMP
+$oldTmp=$env:TMP
+$oldUpm=$env:UPM_CACHE_ROOT
 Push-Location $instance
 try {
     $token=(Api "repos/$Repository/actions/runners/registration-token" 'POST').token
@@ -71,6 +89,12 @@ try {
     $token=$null
     $env:GGFRAMEWORK_UNITY_EDITOR=$UnityEditor
     $env:GGFRAMEWORK_PYTHON=$PythonExecutable
+    $hostTemp=Join-Path $instance 'host-temp'
+    $upmCache=Join-Path $root 'upm-cache'
+    New-Item -ItemType Directory -Path $hostTemp,$upmCache -Force|Out-Null
+    $env:TEMP=$hostTemp
+    $env:TMP=$hostTemp
+    $env:UPM_CACHE_ROOT=$upmCache
     Write-Output "Running one trusted CI job: https://github.com/$Repository/actions/runs/$($target.id)"
     $listener=Start-Process -FilePath $env:ComSpec -ArgumentList @('/d','/c','run.cmd --once') -WorkingDirectory $instance -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $instance 'runner.log') -RedirectStandardError (Join-Path $instance 'runner.stderr.log')
     if (!$listener.WaitForExit($JobTimeoutMinutes*60000)) {$listener.Kill($true);$listener.WaitForExit();throw 'One-shot runner timeout'}
@@ -78,6 +102,9 @@ try {
 } finally {
     $env:GGFRAMEWORK_UNITY_EDITOR=$oldUnity
     $env:GGFRAMEWORK_PYTHON=$oldPython
+    $env:TEMP=$oldTemp
+    $env:TMP=$oldTmp
+    $env:UPM_CACHE_ROOT=$oldUpm
     if ($registrationAttempted) {
         $remaining=@((Api "repos/$Repository/actions/runners?per_page=100").runners|Where-Object {$_.name -eq $name})
         foreach ($runner in $remaining) {Api "repos/$Repository/actions/runners/$($runner.id)" 'DELETE'|Out-Null}

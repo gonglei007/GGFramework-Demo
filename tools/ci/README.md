@@ -45,6 +45,8 @@ Windows、PowerShell 7.2+、Python 3.10+、Git、已为当前用户激活的 Uni
 
 启动器要求 `gh` 已以仓库拥有者登录，精确核对仓库、SHA、触发者、事件、工作流路径、run attempt 和排队标签。只使用官方下载且 SHA-256 校验通过的 runner；只运行一个 job，不安装 Windows 服务，不复制或上传本机 Unity 许可证。结束后注销 runner，即使失败也执行清理。runner 包、工作目录可保留供排查，不等于服务或注册仍存在。
 
+首次远程 Git 对象传输受限时，可加 `-SeedRepository '<同一仓库的本地检出绝对路径>'`。启动器先核对 origin 与完整 SHA，只复制已提交 Git 对象、不复制工作树或 Library；Actions 仍从规范 GitHub origin 检出该精确提交并清理工作区。启动器把子进程临时目录及 UPM 缓存放在 RunnerRoot 所在卷，结束时恢复调用环境，不修改用户/系统级设置。
+
 首次引入工作流会由分支 push 启动。合并后 main / master 的新 SHA 会启动另一轮，需要再次提供一次性 runner；重跑失败 workflow 也有新的 attempt 标签。`-RunId` 可以明确指定一个已有 run。启动器不会自动合并，合并前仍须核对当前 PR、评论、所有检查和最新头提交。
 
 不要把该启动器改成接收任意 fork 代码的常驻个人工作站 runner。GitHub 关于公共仓库与工作站 runner 的[信任边界](https://docs.github.com/en/actions/reference/security/secure-use#self-hosted-runners)仍适用；持续无人值守运行应另行准备隔离且已授权的专用环境。

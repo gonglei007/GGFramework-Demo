@@ -143,3 +143,9 @@ Player 自动测试会写入报告与主要页面截图，然后用 0（成功�
 
 Demo 继续采用现有模块源码副本；修复不会自动传播到独立模块仓库。
 共享能力使用公开的 Core v0.3.0 固定标签；SDK 注入与事件修复同时维护 Demo 和独立 GGUser。
+
+## 自动化回归与 CI
+
+从仓库根调用 `tools/ci/Invoke-UnityRegression.ps1` 即可顺序执行本地 Bundle、Core、Editor 冒烟、关闭 Domain Reload 两次退出、Player 构建与两类 Player 回归。它要求全新的输出目录，检查实际 Editor 版本、准确提交、进程退出码、新报告、逐项结果和退出/释放证据，拒绝跳过、空跑及陈旧报告。
+
+[完整参数、Actions 触发、一次性 runner 启动、artifact 和边界](../tools/ci/README.md)统一维护；[本仓契约](../ci/unity-regression.json)定义必需阶段。GitHub 托管的 PR 契约校验不会代替真实 Unity 执行；没有一次性 runner 时实际 Unity job 会排队。合并前和合并后的新 SHA 分别需要完成真实回归。

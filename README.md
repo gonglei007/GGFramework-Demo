@@ -62,3 +62,9 @@ Windows 11 / Unity 6000.3.13f1：Core 66/66、Editor 冒烟 28/28、Windows x64 
 - 不注册全局日志回调（`Application.logMessageReceived += ...` 已注释）。
 
 > 详细的副本对齐范围与决策依据见 `GGFramework-Docs` 仓库的 ADR-0003。
+
+## 自动化 Unity 回归与 CI
+
+共享执行器与一次性 runner 启动说明见 [tools/ci/README.md](tools/ci/README.md)，本仓契约为 [ci/unity-regression.json](ci/unity-regression.json)。分支 push 自动创建真实 Unity 回归 job；使用已激活的 Windows Unity 6000.3.13f1 一次性 runner，每轮结束后注销，不安装常驻服务。PR 的 GitHub 托管契约检查与真实 Unity 结果分别显示，未启动 runner 时不能算作 Unity 通过。
+
+Demo CI 覆盖稳定 Core 66 项、Editor 冒烟、关闭 Domain Reload 连续两次完整退出、专属资源/池/事件与 UI 归属清理、Prefab 实际导入，以及 Windows Mono Player 冒烟与生命周期。artifact 提供准确 SHA、逐项结果和报告摘要；完整授权日志不公开上传。其他模块按固定 Demo SHA 复用脚本，并保持各自运行时依赖。
